@@ -2,12 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link id="vendorsbundle" rel="stylesheet" media="screen, print" href="/css/vendors.bundle.css">
+    <link id="appbundle" rel="stylesheet" media="screen, print" href="/css/app.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="/css/fa-solid.css">
+    <link rel="stylesheet" media="screen, print" href="/css/fa-brands.css">
+    <title>Dietray System</title>
   </head>
-  <body>
+  <body class="global">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script src="/css/vendors.bundle.js"></script>
   </body>
 </html>

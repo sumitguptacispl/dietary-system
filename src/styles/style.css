@@ -1,0 +1,9 @@
+.page-logo {
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
+    height: 9vh; /* Full height of the viewport */
+    font-size: 2em; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    text-align: center; /* Center the text */
+}
