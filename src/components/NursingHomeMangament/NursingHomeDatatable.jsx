@@ -9,6 +9,7 @@ import { apiPost } from '../../hooks/Api';
 import { SuccessNotificationMsg, ErrorNotificationMsg } from "../../hooks/NotificationHelper";
 import { StyleSheetManager } from 'styled-components';
 import isPropValid from '@emotion/is-prop-valid';
+import ResidentCSVUploadModal from './ResidentCSVUploadModal';
 const { Option } = Select;
 
 const NursingHomeDatatable = () => {
@@ -18,7 +19,7 @@ const NursingHomeDatatable = () => {
     const [searchData, setsearchData] = useState("");
     const [search, setSearch] = useState([]);
     const [pending, setPending] = useState(true);
-    //const [displayModal, setDisplayModal] = useState(false);
+    const [displayModal, setDisplayModal] = useState(false);
     const [viewData, setViewData] = useState('');
     const [isViewMode, setIsViewMode] = useState(false);
     const [id, setId] = useState('');
@@ -42,7 +43,6 @@ const NursingHomeDatatable = () => {
             setPending(true);
             const response = await apiPost('/get-all-resident-data', {});
             if(response.status === 'success'){
-                console.log(response.data);
                 setResidentlist(response.data);
                 setSearch(response.data);
                 setPending(false);
@@ -149,15 +149,11 @@ const NursingHomeDatatable = () => {
     /* function for store residential data end */
 
     const handleFormEdit = async(values, { setSubmitting, resetForm }) => {
+        console.log();
         try {
             setBtnLoading(true);
             values.id = id;
-            if(values.iddsiLevel === "Food"){
-                values.consistencyLevel = "";
-            } else if(values.iddsiLevel === "Drink"){
-                values.textureLevel = "";
-            }
-            const response = await apiPost('/update-food-items', values);
+            const response = await apiPost('/update-resident-data', values);
             if(response.status === 'success'){
                 resetForm();
                 SuccessNotificationMsg("Success",response.message);
@@ -174,6 +170,10 @@ const NursingHomeDatatable = () => {
             ErrorNotificationMsg("Something went wrong!!");
         }
     }
+
+    const handleCSVModalCancel = () => {
+        setDisplayModal(false);
+    };
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -197,9 +197,9 @@ const NursingHomeDatatable = () => {
     };
 
     const handleDelete = async(row) => {
-        if (window.confirm(`Are you sure you want to delete ${row.name}?`)) {
+        if (window.confirm(`Are you sure you want to delete ${row.resident_name}?`)) {
             try {
-                const response = await apiPost('/delete-food-items', {row});
+                const response = await apiPost('/delete-resident-data', {row});
                 if(response.status === 'success'){
                     SuccessNotificationMsg("Success",response.message);
                     getAllResidentData();
@@ -214,7 +214,7 @@ const NursingHomeDatatable = () => {
 
     const searchComponent = (
         <Input
-            placeholder="Search by title"
+            placeholder="Search by resident name"
             value={searchData}
             onChange={(e) => { setsearchData(e.target.value) }}
             style={{ marginBottom: '10px', width: '300px' }}
@@ -245,7 +245,7 @@ const NursingHomeDatatable = () => {
                         </Link>
                         <Link
                             to="#"
-                            //onClick={() => setDisplayModal(true)}
+                            onClick={() => setDisplayModal(true)}
                             className="btn btn-sm waves-effect waves-themed"
                             style={{ backgroundColor: '#52c41a', color: '#fff' }}
                         >
@@ -266,7 +266,14 @@ const NursingHomeDatatable = () => {
                 />
             </div>
 
-            {/* Modal for Create Food Items */}
+            {/* Modal for CSV Upload */}
+            <ResidentCSVUploadModal
+                showModal={displayModal} 
+                handleCancel={handleCSVModalCancel}
+                getAllResidentData={getAllResidentData}
+            />
+
+            {/* Modal for Create Resident Details */}
             <Modal
                 className='ant-modal-custom-width'
                 title={isViewMode ? "View Food Item" : "Create/Edit Food Item"}
@@ -314,7 +321,7 @@ const NursingHomeDatatable = () => {
                             validateStatus={touched.foodItem && errors.foodItem ? 'error' : ''}
                             help={touched.foodItem && errors.foodItem ? errors.foodItem : ''}
                         >
-                            <div style={{display:'none'}}>{values.foodItem}</div>
+                            <div style={{display:'none'}}>{values.food_items_id}</div>
                             <Select 
                                 placeholder="Select food item"
                                 onChange={(value) => setFieldValue('foodItem', value)}

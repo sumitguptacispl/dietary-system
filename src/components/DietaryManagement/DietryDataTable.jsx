@@ -228,7 +228,7 @@ const DietaryDataTable = () => {
 
     const searchComponent = (
         <Input
-            placeholder="Search by title"
+            placeholder="Search by food item"
             value={searchData}
             onChange={(e) => { setsearchData(e.target.value) }}
             style={{ marginBottom: '10px', width: '300px' }}

@@ -125,18 +125,26 @@ class FoodItem {
     public function deleteFoodItems($id) {
 
         try {
-            $stmt = $this->pdo->prepare("DELETE FROM food_items WHERE id = :id");
-    
-            $stmt->execute([
+            $this->pdo->beginTransaction();
+
+            $stmtResidents = $this->pdo->prepare("DELETE FROM residents WHERE food_items_id = :id");
+            $stmtResidents->execute([
                 'id' => $id
             ]);
     
-            if ($stmt->rowCount() > 0) {
+            $stmtFoodItems = $this->pdo->prepare("DELETE FROM food_items WHERE id = :id");
+            $stmtFoodItems->execute([
+                'id' => $id
+            ]);
+    
+            if ($stmtFoodItems->rowCount() > 0) {
+                $this->pdo->commit();
                 return [
                     'success' => true,
-                    'message' => 'Food item deleted successfully!'
+                    'message' => 'Food item and related residents deleted successfully!'
                 ];
             } else {
+                $this->pdo->rollBack();
                 return [
                     'success' => false,
                     'message' => 'No food item found with the provided id.'
@@ -144,12 +152,14 @@ class FoodItem {
             }
     
         } catch (PDOException $e) {
+            $this->pdo->rollBack();
             return [
                 'success' => false,
-                'message' => 'Failed to delete food item: ' . $e->getMessage()
+                'message' => 'Failed to delete food item and related residents: ' . $e->getMessage()
             ];
         }
     }
+    
 
 }
 ?>

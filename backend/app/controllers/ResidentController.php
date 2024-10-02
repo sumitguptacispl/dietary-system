@@ -51,6 +51,67 @@ class ResidentController{
             }
         }
     }
+
+    public function updateResidentData() {
+        if ($_SERVER['CONTENT_TYPE'] === 'application/json') {
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+            $model = new Resident();
+            $result = $model->updateResidentData($data);
+            if ($result['success'] == true) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => $result['message']
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => $result['message']
+                ]);
+            }
+        }
+    }
+
+    public function deleteResidentData() {
+        if ($_SERVER['CONTENT_TYPE'] === 'application/json') {
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+            $model = new Resident();
+            $result = $model->deleteResidentData($data['row']['id']);
+            if ($result['success'] == true) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => $result['message']
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => $result['message']
+                ]);
+            }
+        }
+    }
+
+
+    public function uploadResidentCSVData(){
+        if ($_SERVER['CONTENT_TYPE'] === 'application/json') {
+            $rawData = file_get_contents("php://input");
+            $data = json_decode($rawData, true);
+            $model = new Resident();
+            $result = $model->insertResidentDataFromCSV($data);
+            if ($result['success']) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => $result['message']
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => $result['message']
+                ]);
+            }
+        }
+    }
 }
 
 ?>

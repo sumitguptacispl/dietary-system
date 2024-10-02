@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Form as AntForm } from "antd";
-//import Password from "antd/lib/input/Password";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { apiPost } from '../../hooks/Api';
@@ -129,7 +128,7 @@ const Registration = () => {
 
                     <Button
                         type="default"
-                        style={{ backgroundColor: '#52c41a', color: '#fff' }} // Green button for Login
+                        style={{ backgroundColor: '#52c41a', color: '#fff' }}
                     >
                         <Link to="/login" style={{ color: '#fff' }}>Login</Link>
                     </Button>

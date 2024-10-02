@@ -16,4 +16,7 @@ $router->add('/delete-food-items', ['controller' => 'foodItems', 'action' => 'de
 
 $router->add('/get-all-resident-data', ['controller' => 'resident', 'action' => 'getAllResidentList']);
 $router->add('/store-resident-data', ['controller' => 'resident', 'action' => 'saveResidentData']);
+$router->add('/update-resident-data', ['controller' => 'resident', 'action' => 'updateResidentData']);
+$router->add('/delete-resident-data', ['controller' => 'resident', 'action' => 'deleteResidentData']);
+$router->add('/upload-resident-details', ['controller' => 'resident', 'action' => 'uploadResidentCSVData']);
 ?>

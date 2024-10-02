@@ -8,7 +8,7 @@ import { SuccessNotificationMsg, ErrorNotificationMsg } from "../../hooks/Notifi
 import Papa from "papaparse";
 import PropTypes from 'prop-types';
 
-const CSVUploadModal = ({ showModal, handleCancel, getAllFoodItems }) => {
+const ResidentCSVUploadModal = ({ showModal, handleCancel, getAllResidentData }) => {
     const [csvData, setCsvData] = useState(null);
 
     /* Define validation schema with Yup for Formik start */
@@ -46,12 +46,12 @@ const CSVUploadModal = ({ showModal, handleCancel, getAllFoodItems }) => {
     const handleCSVSubmit = async (values, { resetForm }) => {
         if (csvData) {
             try {
-                const response = await apiPost('/upload-food-items', {csvData});
+                const response = await apiPost('/upload-resident-details', {csvData});
                 if(response.status === 'success'){
                     setCsvData(null);
                     resetForm();
                     SuccessNotificationMsg("Success",response.message);
-                    getAllFoodItems();
+                    getAllResidentData();
                     handleCancel();
                 } else {
                     setCsvData(null);
@@ -133,10 +133,10 @@ const CSVUploadModal = ({ showModal, handleCancel, getAllFoodItems }) => {
     )
 }
 
-CSVUploadModal.propTypes = {
+ResidentCSVUploadModal.propTypes = {
     showModal: PropTypes.bool.isRequired,
     handleCancel: PropTypes.func.isRequired,
-    getAllFoodItems: PropTypes.func.isRequired
+    getAllResidentData: PropTypes.func.isRequired
 };
 
-export default CSVUploadModal;
+export default ResidentCSVUploadModal;
