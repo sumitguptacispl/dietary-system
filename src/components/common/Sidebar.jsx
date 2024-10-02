@@ -53,16 +53,16 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="#">
+                            <Link to="/dietary-management">
                                 <i className="fal fa-heart"></i>
                                 <span className="nav-link-text">Dietary Management</span>
                                 {/* <b className="collapse-sign"><em className={menu1 ? "fal fa-angle-up" : "fal fa-angle-down"}></em></b> */}
                             </Link>
                         </li>
                         <li>
-                            <Link to="#">
+                            <Link to="/resident-management">
                                 <i className="fal fa-user"></i>
-                                <span className="nav-link-text">User Management</span>
+                                <span className="nav-link-text">Resident Management</span>
                                 {/* <b className="collapse-sign"><em className={menu1 ? "fal fa-angle-up" : "fal fa-angle-down"}></em></b> */}
                             </Link>
                         </li>

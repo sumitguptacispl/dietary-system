@@ -5,6 +5,8 @@ import Login from "../authentication/Login";
 import AdminLayout from "./AdminLayout";
 import Dashboard from "../Dashboard/Dashboard";
 import Registration from "../authentication/Registration";
+import DietaryManagement from "../DietaryManagement/DietaryManagement";
+import NursingHomeManagement from "../NursingHomeMangament/NursingHomeManagement";
 
 
 function MainRoutes() {
@@ -17,6 +19,8 @@ function MainRoutes() {
                 </Route>
                 <Route element={<AdminLayout />}>
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/dietary-management" element={<DietaryManagement/>}/>
+                    <Route path="/resident-management" element={<NursingHomeManagement/>}/>
                 </Route>
             </Routes>
         </UserProvider>

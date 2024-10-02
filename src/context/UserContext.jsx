@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
 
     const login = (data) => {
         setUser(data);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(data));
     };
 
     const logout = () => {

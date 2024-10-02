@@ -9103,3 +9103,11 @@ body:not(.mobile-detected)::-webkit-scrollbar-thumb:vertical:hover {
 .pointer {
   cursor: pointer;
 }
+
+.ant-modal-custom-width {
+  width: 500px !important;
+}
+
+.ant-form-item-explain-error{
+  padding: 10px 0px 0px;
+}
