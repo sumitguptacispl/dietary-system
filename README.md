@@ -17,4 +17,5 @@ Instructions to intall the project
 5) All backend related codes are available under backend folder.
 6) For configuaration of DB connection use .env file under Config folder of backend.
 7) Use command - npm run dev for run the project.
+8) In the databse folder there are two csv files are added for insert data into DB for food items and nursing home residents.
 
